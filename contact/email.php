@@ -6,6 +6,8 @@
 	use PHPMailer\PHPMailer\Exception;
 if(isset($_POST['submit']) && $_POST['submit'] == 'submit')
 {
+	echo $_POST['Hear-2'];
+	die();
 	
 	//Load Composer's autoloader
 	require '../vendor/autoload.php';
@@ -17,10 +19,10 @@ if(isset($_POST['submit']) && $_POST['submit'] == 'submit')
 		//Server settings
 		// $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
 		$mail->isSMTP();                                            //Send using SMTP
-		$mail->Host       = 'smtp.mail.yahoo.com:25';                     //Set the SMTP server to send through
+		$mail->Host       = 'mail.fflwaterfeatures.com';                     //Set the SMTP server to send through
 		$mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-		$mail->Username   = 'menniablaise@yahoo.com';                     //SMTP username
-		$mail->Password   = 'ddfnfaiyhphzrvnr';                               //SMTP password
+		$mail->Username   = 'askme@fflwaterfeatures.com';                     //SMTP username
+		$mail->Password   = 'FFLWater123';                               //SMTP password
 		$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;            //Enable implicit TLS encryption
 		$mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 		// $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; 
@@ -55,7 +57,7 @@ if(isset($_POST['submit']) && $_POST['submit'] == 'submit')
 	}
 
 }else{
-    echo 'no';
+    echo 'not submitted';
 }
 
 ?>
