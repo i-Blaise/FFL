@@ -6,8 +6,8 @@
 	use PHPMailer\PHPMailer\Exception;
 if(isset($_POST['submit']) && $_POST['submit'] == 'submit')
 {
-	echo $_POST['Hear-2'];
-	die();
+	// echo $_POST['Hear-2'];
+	// die();
 	
 	//Load Composer's autoloader
 	require '../vendor/autoload.php';
@@ -17,18 +17,18 @@ if(isset($_POST['submit']) && $_POST['submit'] == 'submit')
 	
 	try {
 		//Server settings
-		// $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+		$mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
 		$mail->isSMTP();                                            //Send using SMTP
 		$mail->Host       = 'mail.fflwaterfeatures.com';                     //Set the SMTP server to send through
 		$mail->SMTPAuth   = true;                                   //Enable SMTP authentication
 		$mail->Username   = 'askme@fflwaterfeatures.com';                     //SMTP username
 		$mail->Password   = 'FFLWater123';                               //SMTP password
-		$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;            //Enable implicit TLS encryption
+		$mail->SMTPSecure = 'tls';            //Enable implicit TLS encryption
 		$mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 		// $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; 
 	
 		//Recipients
-		$mail->setFrom('menniablaise@yahoo.com', 'Sonzie CV');
+		$mail->setFrom('askme@fflwaterfeatures.com', 'FFL Inquiries');
 		$mail->addAddress('menniablaise@gmail.com', 'Megaaaa');     //Add a recipient
 		// $mail->addAddress('ellen@example.com');               //Name is optional
 		// $mail->addReplyTo('info@example.com', 'Information');
@@ -41,15 +41,14 @@ if(isset($_POST['submit']) && $_POST['submit'] == 'submit')
 		//Content
 		$mail->isHTML(true);                                  //Set email format to HTML
 		$mail->Subject = 'CV webiste Inquiry';
-		$mail->Body    = '<b>Name:</b> '.$_POST['name'].'<br> <b>Email:</b> '.$_POST['email'].'<br> <b>Subject:</b> '.$_POST['subject'].'<br> <b>Message:</b> '.$_POST['message'].'';
+		$mail->Body    = '<b>How did you hear about us:</b> '.$_POST['Hear-2'].'';
 		$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 	
 		$mail->send();
 		// echo 'Message has been sent';
 		?>
 		<script>
-    		// window.location = 'http://localhost:8088/sonzie.cv?status=good';
-    		window.location = 'https://cv.sonzie.tech/?status=good';
+    		window.location = 'http://localhost/FFL/contact/';
 		</script>
 		<?php
 	} catch (Exception $e) {
