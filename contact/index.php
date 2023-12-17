@@ -1,3 +1,22 @@
+<?php
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
+use Tegimus\IziToast\Toast;
+require '../vendor/tegimus/php-izitoast/src/Toast.php';
+
+$toast = Toast::make();
+// $toast = new Toast();
+
+$title = 'Success';
+$message = 'Message Sent. You will hear from me soon!';
+$type = Toast::TYPE_SUCCESS;
+$options = ['progressBar' => true];
+
+// $toast = new Toast($message);
+//or
+$toast = Toast::make($message, $title, $type, $options);
+?>
 <!DOCTYPE html><!--  This site was created in Webflow. https://www.webflow.com  -->
 <!--  Last Published: Fri Oct 06 2023 11:22:21 GMT+0000 (Coordinated Universal Time)  -->
 <html data-wf-page="651f3137795690899c27088a" data-wf-site="651f3137795690899c27088f">
@@ -19,6 +38,7 @@
   <script type="../text/javascript">!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);</script>
   <link href="../images/favicon.png" rel="shortcut icon" type="image/x-icon">
   <link href="../images/webclip.png" rel="apple-touch-icon">
+  <link rel="stylesheet" type="text/css" href="../css/iziToast.min.css">
   <style>
 html.lenis {
   height: auto;
@@ -268,6 +288,18 @@ label.w-checkbox.tags {
         }
     });
 </script>
+
+  <script type="text/javascript" src="../js/iziToast.min.js"></script>
+  <?php
+if(isset($_GET['status']) && $_GET['status'] == 'sent')
+{
+?>
+  <script>
+  <?php $toast->render() ?>
+  </script>
+<?php
+}
+?>
   <!--  You can put your custom CSS attributes  -->
   <style>
     /* You can apply your own color! 
