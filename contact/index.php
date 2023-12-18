@@ -6,6 +6,7 @@ use Tegimus\IziToast\Toast;
 require '../vendor/tegimus/php-izitoast/src/Toast.php';
 
 $toast = Toast::make();
+$toast_failed = Toast::make();
 // $toast = new Toast();
 
 $title = 'Success';
@@ -13,9 +14,15 @@ $message = 'Message Sent. You will hear from me soon!';
 $type = Toast::TYPE_SUCCESS;
 $options = ['progressBar' => true];
 
+$title_failed = 'Error';
+$message_failed = 'Something went wrong. Try again later.';
+$type_failed = Toast::TYPE_ERROR;
+$options_failed = ['progressBar' => true];
+
 // $toast = new Toast($message);
 //or
 $toast = Toast::make($message, $title, $type, $options);
+$toast_failed = Toast::make($message_failed, $title_failed, $type_failed, $options_failed);
 ?>
 <!DOCTYPE html><!--  This site was created in Webflow. https://www.webflow.com  -->
 <!--  Last Published: Fri Oct 06 2023 11:22:21 GMT+0000 (Coordinated Universal Time)  -->
@@ -166,15 +173,15 @@ label.w-checkbox.tags {
               <option value="Four">Stream</option>
               <option value="Another option">Another option</option>
             </select>
-            <input type="text" class="form-input w-input" maxlength="256" name="Name" data-name="Name" placeholder="Name" id="Name-5">
+            <input type="text" class="form-input w-input" maxlength="256" name="Name" data-name="Name" placeholder="Name" id="Name-5" required>
           </div>
           <div class="form-flex">
-            <input type="text" class="form-input w-input" maxlength="256" name="Address" data-name="Address" placeholder="Address" id="Address">
-            <input type="text" class="form-input w-input" maxlength="256" name="City" data-name="City" placeholder="City" id="City">
+            <input type="text" class="form-input w-input" maxlength="256" name="Address" data-name="Address" placeholder="Address" id="Address" required>
+            <input type="text" class="form-input w-input" maxlength="256" name="City" data-name="City" placeholder="City" id="City" required>
           </div>
           <div class="form-flex">
-            <input type="tel" class="form-input w-input" maxlength="256" name="Phone" data-name="Phone" placeholder="Phone Number" id="Phone">
-            <input type="email" class="form-input w-input" maxlength="256" name="email" data-name="Email 2" placeholder="Email" id="email-2">
+            <input type="tel" class="form-input w-input" maxlength="256" name="Phone" data-name="Phone" placeholder="Phone Number" id="Phone" required>
+            <input type="email" class="form-input w-input" maxlength="256" name="email" data-name="Email 2" placeholder="Email" id="email-2" required>
           </div>
           <div class="form-info">
             <h3 class="ff-h3 has-color-blue text-center">CONSULTANT INFORMATION</h3>
@@ -183,7 +190,17 @@ label.w-checkbox.tags {
           <div class="form-flex">
             <div class="field-wrap"><input type="text" class="text-field-left-icon w-input" autocomplete="off" maxlength="256" name="consultation_date" data-name="Date" placeholder="Consultation Date/Date" data-toggle="datepicker" id="Date"><img alt="" loading="lazy" src="../images/Date.svg" class="field-icon"></div><input type="text" class="form-input w-input" maxlength="256" name="consultation_time" data-name="Time" placeholder="Preferred Time" id="Time">
           </div>
-          <div class="form-flex"><label class="tags w-radio"><input type="radio" id="Cash" name="cash" value="Cash" data-name="Fee" class="w-form-formradioinput tags-button w-radio-input"><span class="tags-label w-form-label" for="Cash">Cash</span></label><label class="tags w-radio"><input type="radio" id="Cash" name="online" value="Online" data-name="Fee" class="w-form-formradioinput tags-button w-radio-input"><span class="tags-label w-form-label" for="Cash">Online</span></label></div>
+          <div class="form-flex">
+            <label class="tags w-radio">
+              <input type="radio" id="Cash" name="payment" value="Cash" data-name="Fee" class="w-form-formradioinput tags-button w-radio-input">
+              <span class="tags-label w-form-label" for="Cash">Cash</span>
+            </label>
+            
+            <label class="tags w-radio">
+              <input type="radio" id="online" name="payment" value="Online" data-name="Fee" class="w-form-formradioinput tags-button w-radio-input">
+              <span class="tags-label w-form-label" for="online">Online</span>
+            </label>
+          </div>
           <p class="ff-paragrapgh has-color-blue text-center mx-6">Please call FFL Water Features<strong> </strong>on <strong>0542618595 </strong>if you wish to make payment.
           </p>
           <input type="submit" name="submit" value="submit" data-wait="Please wait..." class="submit-button w-button">
@@ -296,6 +313,13 @@ if(isset($_GET['status']) && $_GET['status'] == 'sent')
 ?>
   <script>
   <?php $toast->render() ?>
+  </script>
+<?php
+}elseif(isset($_GET['status']) && $_GET['status'] == 'failed')
+{
+?>
+  <script>
+  <?php $toast_failed->render() ?>
   </script>
 <?php
 }

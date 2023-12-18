@@ -18,7 +18,7 @@ if(isset($_POST['submit']) && $_POST['submit'] == 'submit')
 	$phone_number = $_POST['Phone'];
 	$consultation_date = $_POST['consultation_date'];
 	$consultation_time = $_POST['consultation_time'];
-	$payment_method = isset($_POST['cash']) ? 'cash' : 'online'; 
+	$payment_method = isset($_POST['payment'])? $_POST['payment'] : false; 
 	// die();
 	
 	//Load Composer's autoloader
@@ -32,20 +32,21 @@ if(isset($_POST['submit']) && $_POST['submit'] == 'submit')
 		$mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
 		// $mail->isSMTP(); 
 		$mail->IsSMTP();                                           //Send using SMTP
-		$mail->Host       = 'smtp.mail.yahoo.com:25';                     //Set the SMTP server to send through
+		$mail->Host       = 'smtp.gmail.com.';                     //Set the SMTP server to send through
 		$mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-		$mail->Username   = 'menniablaise@yahoo.com';                     //SMTP username
-		$mail->Password   = 'ddfnfaiyhphzrvnr';                               //SMTP password
-		$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;            //Enable implicit TLS encryption
+		$mail->Username   = 'support@ninanigroup.com';                     //SMTP username
+		$mail->Password   = 'papu khko alfe rpba';                               //SMTP password
+		$mail->SMTPSecure = 'tls';            //Enable implicit TLS encryption
 		$mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 		// $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; 
 	
 		//Recipients
-		// $mail->addReplyTo('menniablaise@gmail.com', 'Information');
-		$mail->setFrom('menniablaise@yahoo.com', 'FFL Inquiries', false);
-		$mail->addAddress('blaise.mennia@interactivedigital.com.gh', 'ID TOOLS');     //Add a recipient
+		$mail->addReplyTo($email, $name);
+		$mail->setFrom('support@ninanigroup.com', 'FFL Inquiries From Website', false);
+		$mail->addAddress('askme@fflwaterfeatures.com', 'FFL Support');     //Add a recipient
+		// $mail->addAddress('blaise.mennia@interactivedigital.com.gh', 'FFL Support');     //Add a recipient
 		// $mail->addAddress('ellen@example.com');               //Name is optional
-		// $mail->addBCC('askme@fflwaterfeatures.com');
+		$mail->addBCC('toolssupport@interactivedigital.com.gh');
 	
 		//Attachments
 		// $mail->addAttachment('/var/tmp/file.tar.gz');         //Add attachments
@@ -53,7 +54,7 @@ if(isset($_POST['submit']) && $_POST['submit'] == 'submit')
 	
 		//Content
 		$mail->isHTML(true);                                  //Set email format to HTML
-		$mail->Subject = 'FFL webiste Inquiry';
+		$mail->Subject = 'FFL Webiste Inquiry';
 		$mail->Body    = '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 		<html lang="en">
 		<head>
@@ -122,7 +123,7 @@ if(isset($_POST['submit']) && $_POST['submit'] == 'submit')
 						<table width="600" cellpadding="0" cellspacing="0" border="0" class="container">
 						  <tr>
 							<td align="center" valign="top">
-								<img src="https://fflwaterfeatures.com/images/FFL-Water-logo_1FFL-Water-logo.webp" width="100" height="100" style="margin:0; padding:0; border:none; display:block;" border="0" class="img" alt="">
+								<img src="https://fflwaterfeatures.com/images/email_logo.png" width="180" height="80" style="margin:0; padding:0; border:none; display:block;" border="0" class="img" alt="">
 								<h1 style="margin:0; padding:0; margin-bottom:15px;">Enquiry From Website</h1>
 							</td>
 						  </tr>
@@ -311,7 +312,7 @@ if(isset($_POST['submit']) && $_POST['submit'] == 'submit')
 					<tr>
 					  <td height="10" style="font-size:10px; line-height:10px;">&nbsp;</td>
 					</tr>
-				  </table>]
+				  </table>
 		
 					  </td>
 					</tr>
@@ -332,10 +333,16 @@ if(isset($_POST['submit']) && $_POST['submit'] == 'submit')
 		// echo 'Message has been sent';
 		?>
 		<script>
-    		window.location = 'http://localhost/FFL/contact/?status=sent';
+    		window.location = 'https://fflwaterfeatures.com/contact/?status=sent';
+			// http://localhost/FFL/contact/?status=sent
 		</script>
 		<?php
 	} catch (Exception $e) {
+		?>
+		<script>
+    		window.location = 'https://fflwaterfeatures.com/contact/?status=failed';
+		</script>
+		<?php
 		echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 	}
 
